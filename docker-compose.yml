@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: teacherAssistantPG
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - TZ=UTC
+    ports:
+      - '5433:5432' # <--- Host:Container
+    volumes:
+      - teacherAssistantPG:/var/lib/postgresql/data
+
+  # Teacher-Assistant-API:
+  #   build: .
+  #   container_name: Teacher-Assistant-API
+  #   depends_on:
+  #     - postgres
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - '8080:8080'
+
+volumes:
+  teacherAssistantPG:
