@@ -1,7 +1,16 @@
-import { seedFocusAreas } from './focus-area.seed';
+import { AppDataSource } from '../data-source';
+import { seedProficiencyLevels } from './proficiency-level.seed';
+import { seedSkillCategories } from './skill-category.seed';
+import { seedSubjects } from './subject.seed';
 
 async function runAllSeeds() {
-  await Promise.all([seedFocusAreas()]);
+  await seedSubjects();
+  await seedProficiencyLevels();
+  await seedSkillCategories();
+
+  if (AppDataSource.isInitialized) {
+    await AppDataSource.destroy();
+  }
 }
 
 runAllSeeds()
