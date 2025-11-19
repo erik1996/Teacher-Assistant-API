@@ -44,11 +44,11 @@ export class AuthService {
     const payload = { sub: user.id, role: user.role };
     const accessToken = this.jwtService.sign(payload, {
       secret: process.env.JWT_SECRET!,
-      expiresIn: process.env.JWT_EXPIRATION,
+      expiresIn: parseInt(process.env.JWT_EXPIRATION!, 10),
     });
     const refreshToken = this.jwtService.sign(payload, {
       secret: process.env.JWT_REFRESH_SECRET!,
-      expiresIn: process.env.JWT_REFRESH_EXPIRATION,
+      expiresIn: parseInt(process.env.JWT_REFRESH_EXPIRATION!, 10),
     });
 
     user.currentHashedRefreshToken = await bcrypt.hash(refreshToken, 10);
