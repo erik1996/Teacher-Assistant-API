@@ -28,15 +28,6 @@ export class ProficiencyLevel {
   @Column({ type: 'boolean', default: true })
   is_active: boolean;
 
-  @Column({ type: 'jsonb', nullable: true })
-  config?: Record<string, any>;
-
-  @Column({ type: 'text', nullable: true })
-  system_prompt?: string;
-
-  @Column({ type: 'text', nullable: true })
-  user_prompt?: string;
-
   @Column({ type: 'int' })
   subject_id: number;
 

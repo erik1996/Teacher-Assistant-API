@@ -8,12 +8,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ProficiencyLevel } from './proficiency-level.entity';
 import { Subject } from './subject.entity';
 
 @Entity('skill_categories')
 @Index(['name'])
-@Index(['subject_id', 'proficiency_level_id', 'name'], { unique: true })
+@Index(['subject_id', 'name'], { unique: true })
 export class SkillCategory {
   @PrimaryGeneratedColumn()
   id: number;
@@ -27,20 +26,8 @@ export class SkillCategory {
   @Column({ type: 'boolean', default: true })
   is_active: boolean;
 
-  @Column({ type: 'jsonb', nullable: true })
-  config?: Record<string, any>;
-
-  @Column({ type: 'text', nullable: true })
-  system_prompt?: string;
-
-  @Column({ type: 'text', nullable: true })
-  user_prompt?: string;
-
   @Column({ type: 'int' })
   subject_id: number;
-
-  @Column({ type: 'int' })
-  proficiency_level_id: number;
 
   @CreateDateColumn()
   created_at: Date;
@@ -51,8 +38,4 @@ export class SkillCategory {
   @ManyToOne(() => Subject, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'subject_id' })
   subject: Subject;
-
-  @ManyToOne(() => ProficiencyLevel, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'proficiency_level_id' })
-  proficiencyLevel: ProficiencyLevel;
 }
