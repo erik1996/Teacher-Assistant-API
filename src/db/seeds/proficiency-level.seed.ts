@@ -5,41 +5,96 @@ import { Subject } from '../entities/subject.entity';
 type LevelSeed = {
   code: string;
   name: string;
-  display_order: number;
-
-  config?: Record<string, any>;
+  displayOrder: number;
+  recommendedAi?: string;
+  recommendedModel?: string;
+  aiConfiguration?: Record<string, any>;
 };
 
 const cefrLevels: LevelSeed[] = [
   {
     code: 'A1',
     name: 'Beginner',
-    display_order: 1,
+    displayOrder: 1,
+    recommendedModel: 'claude-sonnet-4-20250514',
+    recommendedAi: 'claude',
+    aiConfiguration: {
+      complexity: { grammar: 2, vocabulary: 2, reading: 2 },
+      min_score: 75,
+      max_retries: 2,
+      required_focus_coverage: 0.8,
+      temperature: 0.6,
+    },
   },
   {
     code: 'A2',
     name: 'Elementary',
-    display_order: 2,
+    displayOrder: 2,
+    recommendedModel: 'claude-sonnet-4-20250514',
+    recommendedAi: 'claude',
+    aiConfiguration: {
+      complexity: { grammar: 3, vocabulary: 3, reading: 3 },
+      min_score: 75,
+      max_retries: 2,
+      required_focus_coverage: 0.8,
+      temperature: 0.65,
+    },
   },
   {
     code: 'B1',
     name: 'Intermediate',
-    display_order: 3,
+    displayOrder: 3,
+    recommendedModel: 'claude-sonnet-4-20250514',
+    recommendedAi: 'claude',
+    aiConfiguration: {
+      complexity: { grammar: 5, vocabulary: 4, reading: 4 },
+      min_score: 75,
+      max_retries: 2,
+      required_focus_coverage: 0.8,
+      temperature: 0.7,
+    },
   },
   {
     code: 'B2',
     name: 'Upper Intermediate',
-    display_order: 4,
+    displayOrder: 4,
+    recommendedModel: 'claude-opus-4-1-20250805',
+    recommendedAi: 'claude',
+    aiConfiguration: {
+      complexity: { grammar: 6, vocabulary: 5, reading: 5 },
+      min_score: 75,
+      max_retries: 2,
+      required_focus_coverage: 0.8,
+      temperature: 0.7,
+    },
   },
   {
     code: 'C1',
     name: 'Advanced',
-    display_order: 5,
+    displayOrder: 5,
+    recommendedModel: 'claude-opus-4-1-20250805',
+    recommendedAi: 'claude',
+    aiConfiguration: {
+      complexity: { grammar: 7, vocabulary: 7, reading: 7 },
+      min_score: 75,
+      max_retries: 2,
+      required_focus_coverage: 0.8,
+      temperature: 0.75,
+    },
   },
   {
     code: 'C2',
     name: 'Proficient',
-    display_order: 6,
+    displayOrder: 6,
+    recommendedModel: 'claude-opus-4-1-20250805',
+    recommendedAi: 'claude',
+    aiConfiguration: {
+      complexity: { grammar: 9, vocabulary: 8, reading: 8 },
+      min_score: 75,
+      max_retries: 2,
+      required_focus_coverage: 0.8,
+      temperature: 0.8,
+    },
   },
 ];
 
@@ -65,7 +120,7 @@ export async function seedProficiencyLevels() {
   const levelRepository = AppDataSource.getRepository(ProficiencyLevel);
   const subjectRepository = AppDataSource.getRepository(Subject);
 
-  for (const { subjectCode, framework, levels } of proficiencyLevelsData) {
+  for (const { subjectCode, levels } of proficiencyLevelsData) {
     const subject = await subjectRepository.findOne({
       where: { code: subjectCode },
     });
@@ -79,16 +134,28 @@ export async function seedProficiencyLevels() {
 
     for (const level of levels) {
       const existing = await levelRepository.findOne({
-        where: { subject_id: subject.id, code: level.code },
+        where: { subjectId: subject.id, code: level.code },
       });
 
-      const payload = {
-        subject_id: subject.id,
+      const payload: Partial<ProficiencyLevel> = {
+        subjectId: subject.id,
         code: level.code,
         name: level.name,
-        display_order: level.display_order,
-        is_active: true,
-        config: { framework, ...(level.config ?? {}) },
+        displayOrder: level.displayOrder ?? 0,
+        isActive: true,
+        recommendedAi: level.recommendedAi ?? 'claude',
+        recommendedModel: level.recommendedModel ?? 'claude-sonnet-4-20250514',
+        aiConfiguration: level.aiConfiguration ?? {
+          complexity: {
+            grammar: level.displayOrder ?? 0,
+            vocabulary: level.displayOrder ?? 0,
+            reading: level.displayOrder ?? 0,
+          },
+          min_score: 75,
+          max_retries: 2,
+          required_focus_coverage: 0.8,
+          temperature: 0.6,
+        },
       };
 
       if (existing) {

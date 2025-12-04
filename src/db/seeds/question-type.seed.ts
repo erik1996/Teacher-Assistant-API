@@ -5,7 +5,7 @@ const questionTypesData = [
   {
     code: 'multiple_choice',
     name: 'Multiple Choice',
-    is_active: true,
+    isActive: true,
     structure: {
       question: {
         type: 'string',
@@ -42,7 +42,7 @@ const questionTypesData = [
   {
     code: 'fill_in_blanks',
     name: 'Fill in the Blanks',
-    is_active: true,
+    isActive: true,
     structure: {
       question: {
         type: 'string',
@@ -71,7 +71,7 @@ const questionTypesData = [
   {
     code: 'ordering',
     name: 'Ordering',
-    is_active: true,
+    isActive: true,
     structure: {
       question: {
         type: 'string',
@@ -104,7 +104,7 @@ const questionTypesData = [
   {
     code: 'text_input',
     name: 'Text Input',
-    is_active: true,
+    isActive: true,
     structure: {
       question: {
         type: 'string',

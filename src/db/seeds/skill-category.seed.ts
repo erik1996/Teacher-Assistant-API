@@ -3,9 +3,9 @@ import { SkillCategory } from '../entities/skill-category.entity';
 import { Subject } from '../entities/subject.entity';
 
 const baseCategories = [
-  { name: 'Grammar', display_order: 1 },
-  { name: 'Vocabulary', display_order: 2 },
-  { name: 'Reading', display_order: 3 },
+  { name: 'Grammar', displayOrder: 1 },
+  { name: 'Vocabulary', displayOrder: 2 },
+  { name: 'Reading', displayOrder: 3 },
 ];
 
 export async function seedSkillCategories() {
@@ -24,16 +24,16 @@ export async function seedSkillCategories() {
     for (const category of baseCategories) {
       const existing = await categoryRepository.findOne({
         where: {
-          subject_id: subject.id,
+          subjectId: subject.id,
           name: category.name,
         },
       });
 
-      const payload = {
-        subject_id: subject.id,
+      const payload: Partial<SkillCategory> = {
+        subjectId: subject.id,
         name: category.name,
-        display_order: category.display_order,
-        is_active: true,
+        displayOrder: category.displayOrder,
+        isActive: true,
       };
 
       if (existing) {

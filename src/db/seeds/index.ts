@@ -4,6 +4,7 @@ import { seedQuestionTypes } from './question-type.seed';
 import { seedQuestionVariations } from './question-variation.seed';
 import { seedSkillCategories } from './skill-category.seed';
 import { seedSubjects } from './subject.seed';
+import { seedTopics } from './topic.seed';
 
 async function runAllSeeds() {
   await seedSubjects();
@@ -11,6 +12,7 @@ async function runAllSeeds() {
   await seedProficiencyLevels();
   await seedSkillCategories();
   await seedQuestionVariations();
+  await seedTopics();
 
   if (AppDataSource.isInitialized) {
     await AppDataSource.destroy();

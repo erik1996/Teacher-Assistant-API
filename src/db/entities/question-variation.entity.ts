@@ -12,7 +12,7 @@ import { QuestionType } from './question-type.entity';
 import { SkillCategory } from './skill-category.entity';
 
 @Entity('question_variations')
-@Index(['question_type_id', 'skill_category_id'])
+@Index(['questionTypeId', 'skillCategoryId'])
 @Index(['code'])
 export class QuestionVariation {
   @PrimaryGeneratedColumn()
@@ -24,11 +24,11 @@ export class QuestionVariation {
   @Column({ type: 'varchar', length: 100 })
   name: string;
 
-  @Column({ type: 'int', default: 0 })
-  display_order: number;
+  @Column({ name: 'display_order', type: 'int', default: 0 })
+  displayOrder: number;
 
-  @Column({ type: 'boolean', default: true })
-  is_active: boolean;
+  @Column({ name: 'is_active', type: 'boolean', default: true })
+  isActive: boolean;
 
   @Column({ type: 'jsonb', nullable: true })
   config?: Record<string, any>;
@@ -36,20 +36,20 @@ export class QuestionVariation {
   @Column({ type: 'jsonb', nullable: true })
   examples?: Record<string, any>;
 
-  @Column({ type: 'text', nullable: true })
-  user_prompt?: string;
+  @Column({ name: 'user_prompt', type: 'text', nullable: true })
+  userPrompt?: string;
 
-  @Column({ type: 'int' })
-  skill_category_id: number;
+  @Column({ name: 'skill_category_id', type: 'int' })
+  skillCategoryId: number;
 
-  @Column({ type: 'int' })
-  question_type_id: number;
+  @Column({ name: 'question_type_id', type: 'int' })
+  questionTypeId: number;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
   @ManyToOne(() => QuestionType, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'question_type_id' })

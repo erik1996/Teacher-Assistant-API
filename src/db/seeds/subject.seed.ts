@@ -5,31 +5,31 @@ const subjectsData = [
   {
     name: 'English',
     code: 'ENG',
-    is_active: true,
+    isActive: true,
     rtl: false,
   },
   {
     name: 'French',
     code: 'FRA',
-    is_active: true,
+    isActive: true,
     rtl: false,
   },
   {
     name: 'Spanish',
     code: 'SPA',
-    is_active: true,
+    isActive: true,
     rtl: false,
   },
   {
     name: 'Arabic',
     code: 'ARA',
-    is_active: true,
+    isActive: true,
     rtl: true,
   },
   {
     name: 'Russian',
     code: 'RUS',
-    is_active: true,
+    isActive: true,
     rtl: false,
   },
 ];

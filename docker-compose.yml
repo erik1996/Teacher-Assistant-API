@@ -10,7 +10,7 @@ services:
     environment:
       - TZ=UTC
     ports:
-      - '5433:5432' # <--- Host:Container
+      - '5434:5432' # <--- Host:Container
     volumes:
       - teacherAssistantPG:/var/lib/postgresql/data
 

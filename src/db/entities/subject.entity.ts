@@ -21,21 +21,21 @@ export class Subject {
   @Column({ type: 'varchar', length: 3, unique: true })
   code: string;
 
-  @Column({ type: 'boolean', default: true })
-  is_active: boolean;
+  @Column({ name: 'is_active', type: 'boolean', default: true })
+  isActive: boolean;
 
   @Column({ type: 'boolean', default: false })
   rtl: boolean;
 
-  @Column({ type: 'text', nullable: true })
-  system_prompt?: string;
+  @Column({ name: 'system_prompt', type: 'text', nullable: true })
+  systemPrompt?: string;
 
-  @Column({ type: 'text', nullable: true })
-  user_prompt?: string;
+  @Column({ name: 'user_prompt', type: 'text', nullable: true })
+  userPrompt?: string;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

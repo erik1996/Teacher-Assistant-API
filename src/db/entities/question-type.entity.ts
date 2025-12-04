@@ -21,8 +21,8 @@ export class QuestionType {
   @Column({ type: 'varchar', length: 100 })
   name: string;
 
-  @Column({ type: 'boolean', default: true })
-  is_active: boolean;
+  @Column({ name: 'is_active', type: 'boolean', default: true })
+  isActive: boolean;
 
   @Column({ type: 'jsonb' })
   structure: Record<string, any>;
@@ -30,9 +30,9 @@ export class QuestionType {
   @Column({ type: 'jsonb' })
   config: Record<string, any>;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

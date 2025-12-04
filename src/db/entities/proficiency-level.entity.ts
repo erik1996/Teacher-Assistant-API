@@ -11,7 +11,7 @@ import {
 import { Subject } from './subject.entity';
 
 @Entity('proficiency_levels')
-@Index(['subject_id', 'code'], { unique: true })
+@Index(['subjectId', 'code'], { unique: true })
 export class ProficiencyLevel {
   @PrimaryGeneratedColumn()
   id: number;
@@ -22,20 +22,29 @@ export class ProficiencyLevel {
   @Column({ type: 'varchar', length: 100 })
   name: string;
 
-  @Column({ type: 'int' })
-  display_order: number;
+  @Column({ name: 'display_order', type: 'int', default: 0 })
+  displayOrder: number;
 
-  @Column({ type: 'boolean', default: true })
-  is_active: boolean;
+  @Column({ name: 'is_active', type: 'boolean', default: true })
+  isActive: boolean;
 
-  @Column({ type: 'int' })
-  subject_id: number;
+  @Column({ name: 'subject_id', type: 'int' })
+  subjectId: number;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @Column({ name: 'ai_configuration', type: 'jsonb' })
+  aiConfiguration: Record<string, number>;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @Column({ name: 'recommended_ai', type: 'varchar', length: 100 })
+  recommendedAi: string;
+
+  @Column({ name: 'recommended_model', type: 'varchar', length: 100 })
+  recommendedModel: string;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
   @ManyToOne(() => Subject, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'subject_id' })
